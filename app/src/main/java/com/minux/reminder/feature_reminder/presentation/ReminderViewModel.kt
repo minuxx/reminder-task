@@ -1,9 +1,9 @@
-package com.minux.reminder
+package com.minux.reminder.feature_reminder.presentation
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(): ViewModel() {
+class ReminderViewModel @Inject constructor(): ViewModel() {
 }
