@@ -1,16 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/background"
+    android:paddingTop="15dp"
+    android:paddingStart="15dp"
+    android:paddingEnd="15dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="RtlSymmetry">
 
     <TextView
-        android:id="@+id/reminders"
+        android:id="@+id/reminders_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="reminders"
+        android:text="@string/reminders_title"
+        android:textColor="@color/screenTitle"
         android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/reminders_add_reminder_btn"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="25dp"
+        android:paddingHorizontal="15dp"
+        android:text="@string/reminders_add_reminder"
+        android:textColor="@color/remindersWidgetText"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:drawableStart="@drawable/ic_reminder_add"
+        android:drawablePadding="10dp"
+        android:gravity="start|center_vertical"
+        android:background="@drawable/bg_white_border"
+        app:layout_constraintTop_toBottomOf="@+id/reminders_title_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
