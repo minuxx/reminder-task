@@ -20,5 +20,8 @@
     <color name="screenTitle">#FFFFFF</color>
     <!--  Reminders  -->
     <color name="remindersWidgetText">#FFFFFF</color>
+    <color name="reminderItemTimeText">#FFFFFF</color>
+    <color name="reminderItemNameText">#2D384E</color>
+
 
 </resources>

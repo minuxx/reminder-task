@@ -24,7 +24,7 @@ class RemindersFragment: Fragment(R.layout.fragment_reminders) {
     }
 
     private fun initUI() {
-        binding.remindersAddReminderBtn.setOnClickListener(
+        binding.remindersAddBtn.setOnClickListener(
             Navigation.createNavigateOnClickListener(
                 R.id.reminderFragment,
                 null
