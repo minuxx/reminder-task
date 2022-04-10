@@ -13,6 +13,7 @@ data class ReminderEntity(
 ) {
     fun toReminder(): Reminder {
         return Reminder(
+            id = id ?: -1,
             name = name,
             time = time,
             isActivated = isActivated

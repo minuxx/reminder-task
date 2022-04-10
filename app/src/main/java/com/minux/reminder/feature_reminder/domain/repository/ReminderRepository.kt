@@ -6,4 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface ReminderRepository {
     fun getReminders(): Flow<Resource<List<Reminder>>>
+
+    fun insertReminder(reminder: Reminder): Flow<Resource<Unit>>
 }
