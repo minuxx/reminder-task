@@ -7,4 +7,21 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--  Common  -->
+    <color name="primary">#F50E3B</color>
+    <color name="secondary">#00A3C7</color>
+
+    <color name="statusBar">#0D1117</color>
+    <color name="background">#0D1117</color>
+    <color name="widgetBackground">#171D2E</color>
+
+    <!--  Main -->
+    <color name="screenTitle">#FFFFFF</color>
+    <!--  Reminders  -->
+    <color name="remindersWidgetText">#FFFFFF</color>
+    <color name="reminderItemTimeText">#FFFFFF</color>
+    <color name="reminderItemNameText">#2D384E</color>
+
+
 </resources>

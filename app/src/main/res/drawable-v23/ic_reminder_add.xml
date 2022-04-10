@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:drawable="@drawable/reminder_add_icon"
+        android:width="@dimen/ic_medium_size"
+        android:height="@dimen/ic_medium_size"
+        />
+</layer-list>
