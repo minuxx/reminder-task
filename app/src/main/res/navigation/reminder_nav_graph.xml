@@ -5,7 +5,7 @@
     app:startDestination="@id/remindersFragment2">
     <fragment
         android:id="@+id/remindersFragment2"
-        android:name="com.minux.reminder.feature_reminder.presentation.RemindersFragment"
+        android:name="com.minux.reminder.feature_reminder.presentation.reminders.RemindersFragment"
         android:label="RemindersFragment" >
         <action
             android:id="@+id/action_remindersFragment2_to_reminderFragment"
@@ -14,7 +14,7 @@
 
     <fragment
         android:id="@+id/reminderFragment"
-        android:name="com.minux.reminder.feature_reminder.presentation.ReminderFragment"
+        android:name="com.minux.reminder.feature_reminder.presentation.reminder.ReminderFragment"
         android:label="ReminderFragment" >
         <action
             android:id="@+id/action_reminderFragment_to_remindersFragment2"

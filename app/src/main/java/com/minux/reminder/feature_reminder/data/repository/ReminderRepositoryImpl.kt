@@ -47,7 +47,6 @@ class ReminderRepositoryImpl(
             dao.insertReminder(reminder = ReminderEntity(
                 name = reminder.name,
                 time = reminder.time,
-                isActivated = reminder.isActivated
             ))
         } catch (e: SQLiteException) {
             Log.e(TAG_APP, e.localizedMessage ?: ERROR_SQLITE)

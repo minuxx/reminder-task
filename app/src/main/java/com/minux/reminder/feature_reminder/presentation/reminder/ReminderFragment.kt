@@ -1,4 +1,4 @@
-package com.minux.reminder.feature_reminder.presentation
+package com.minux.reminder.feature_reminder.presentation.reminder
 
 import android.os.Bundle
 import android.view.View

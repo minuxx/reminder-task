@@ -1,4 +1,4 @@
-package com.minux.reminder.feature_reminder.presentation
+package com.minux.reminder.feature_reminder.presentation.reminders
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -13,6 +13,7 @@ import com.minux.reminder.feature_reminder.domain.model.Reminder
 
 class ReminderAdapter(
     private val context: Context,
+    private val onItemClick: (Reminder) -> (Unit)
 ): ListAdapter<Reminder, ReminderAdapter.ViewHolder>(ReminderDiffCallback) {
     private lateinit var binding: ItemReminderBinding
 
@@ -34,6 +35,8 @@ class ReminderAdapter(
 
             binding.timeTv.text = reminder.time
             binding.nameTv.text = reminder.name
+
+            itemView.setOnClickListener{ onItemClick(reminder) }
         }
     }
 
