@@ -30,10 +30,12 @@ class RemindersFragment: Fragment(R.layout.fragment_reminders) {
 
     private fun initUI() {
         binding.remindersAddBtn.setOnClickListener{
+            viewModel.changeReminderViewType(null)
             findNavController().navigate(R.id.reminderFragment)
         }
 
         reminderAdapter = ReminderAdapter(requireActivity()) {
+            viewModel.changeReminderViewType(it)
             findNavController().navigate(R.id.reminderFragment)
         }
 

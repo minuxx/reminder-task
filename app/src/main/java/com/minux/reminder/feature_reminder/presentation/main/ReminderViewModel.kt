@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.minux.reminder.core.util.Constants.ERROR_UNKNOWN
+import com.minux.reminder.core.util.Constants.TYPE_VIEW_EDIT
+import com.minux.reminder.core.util.Constants.TYPE_VIEW_NEW
 import com.minux.reminder.core.util.Resource
 import com.minux.reminder.feature_reminder.domain.model.Reminder
 import com.minux.reminder.feature_reminder.domain.use_case.ReminderUseCase
@@ -21,8 +23,18 @@ class ReminderViewModel @Inject constructor(
     private val _remindersUiState = MutableLiveData(RemindersUiState())
     val remindersUiState: LiveData<RemindersUiState> get() = _remindersUiState
 
+    private val _reminderUiState = MutableLiveData(ReminderUiState())
+    val reminderUiState: LiveData<ReminderUiState> get() = _reminderUiState
+
     init {
         getReminders()
+    }
+
+    fun changeReminderViewType(reminder: Reminder?) {
+        _reminderUiState.value = reminderUiState.value?.copy(
+            viewType = if(reminder == null) TYPE_VIEW_NEW else TYPE_VIEW_EDIT,
+            reminder = reminder
+        )
     }
 
     fun insertReminder(name: String, time: String) {
