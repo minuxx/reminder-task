@@ -11,6 +11,8 @@
     <!--  Common  -->
     <color name="primary">#F50E3B</color>
     <color name="secondary">#00A3C7</color>
+    <color name="primaryButton">#F50E3B</color>
+    <color name="primaryButtonText">#FFFFFF</color>
 
     <color name="statusBar">#0D1117</color>
     <color name="background">#0D1117</color>
@@ -22,6 +24,11 @@
     <color name="remindersWidgetText">#FFFFFF</color>
     <color name="reminderItemTimeText">#FFFFFF</color>
     <color name="reminderItemNameText">#2D384E</color>
+    <!--  Reminder  -->
+    <color name="reminderCategoryText">#FFFFFF</color>
+    <color name="reminderActivatedText">#FFFFFF</color>
+    <color name="reminderInactivatedText">#2D384E</color>
+    <color name="reminderRingtoneTitleText">#0399BC</color>
 
 
 </resources>

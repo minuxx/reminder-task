@@ -42,7 +42,7 @@
         tools:text="내시경 약 먹기"/>
 
     <ImageView
-        android:id="@+id/right_arrow_iv"
+        android:id="@+id/right_right_arrow_iv"
         android:layout_width="18dp"
         android:layout_height="18dp"
         android:src="@drawable/ic_right_arrow"

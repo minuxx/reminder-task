@@ -12,4 +12,12 @@
 
     <!-- Reminder -->
     <string name="reminder_title">리마인드 설정</string>
+    <string name="reminder_name">리마인드 이름</string>
+    <string name="reminder_name_hint">Please enter a name</string>
+    <string name="reminder_time_set">시간 설정</string>
+    <string name="reminder_ringtone">벨소리</string>
+    <string name="reminder_ringtone_en">Ringtone</string>
+    <string name="reminder_save">Save</string>
+
+    <string name="reminder_cd_ringtone">벨소리 아이콘</string>
 </resources>
