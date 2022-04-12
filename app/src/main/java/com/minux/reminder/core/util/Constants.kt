@@ -8,4 +8,9 @@ object Constants {
 
     const val TYPE_VIEW_NEW = "NEW-VIEW-TYPE"
     const val TYPE_VIEW_EDIT = "EDIT-VIEW-TYPE"
+
+    const val EVENT_MOVE_REMINDERS = "EVENT-MOVE-REMINDERS"
+
+    const val ERROR_MSG_GET_REMINDERS = "리마인더를 불러오는데 실패했습니다. 다시 시도해주세요."
+    const val ERROR_MSG_SET_REMINDER = "리마인더 설정에 실패했습니다. 다시 시도해주세요."
 }

@@ -2,6 +2,8 @@ package com.minux.reminder.feature_reminder.data.repository
 
 import android.database.sqlite.SQLiteException
 import android.util.Log
+import com.minux.reminder.core.util.Constants.ERROR_MSG_GET_REMINDERS
+import com.minux.reminder.core.util.Constants.ERROR_MSG_SET_REMINDER
 import com.minux.reminder.core.util.Constants.ERROR_SQLITE
 import com.minux.reminder.core.util.Constants.ERROR_UNKNOWN
 import com.minux.reminder.core.util.Constants.TAG_APP
@@ -29,13 +31,13 @@ class ReminderRepositoryImpl(
             Log.e(TAG_APP, e.localizedMessage ?: ERROR_SQLITE)
 
             emit(Resource.Error(
-                message = ERROR_SQLITE
+                message = ERROR_MSG_GET_REMINDERS
             ))
         } catch (e: Exception) {
             Log.e(TAG_APP, e.localizedMessage ?: ERROR_UNKNOWN)
 
             emit(Resource.Error(
-                message = ERROR_UNKNOWN
+                message = ERROR_MSG_GET_REMINDERS
             ))
         }
     }
@@ -53,13 +55,13 @@ class ReminderRepositoryImpl(
             Log.e(TAG_APP, e.localizedMessage ?: ERROR_SQLITE)
 
             emit(Resource.Error(
-                message = ERROR_SQLITE
+                message = ERROR_MSG_SET_REMINDER
             ))
         } catch (e: Exception) {
             Log.e(TAG_APP, e.localizedMessage ?: ERROR_UNKNOWN)
 
             emit(Resource.Error(
-                message = ERROR_UNKNOWN
+                message = ERROR_MSG_SET_REMINDER
             ))
         }
     }

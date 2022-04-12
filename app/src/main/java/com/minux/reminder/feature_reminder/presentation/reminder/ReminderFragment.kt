@@ -3,11 +3,17 @@ package com.minux.reminder.feature_reminder.presentation.reminder
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.minux.reminder.R
+import com.minux.reminder.core.util.UiEvent
 import com.minux.reminder.databinding.FragmentReminderBinding
 import com.minux.reminder.feature_reminder.presentation.main.ReminderViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class ReminderFragment: Fragment(R.layout.fragment_reminder) {
     private var _binding: FragmentReminderBinding? = null
@@ -22,6 +28,7 @@ class ReminderFragment: Fragment(R.layout.fragment_reminder) {
         binding.lifecycleOwner = this.viewLifecycleOwner
 
         initUi()
+        observeEventFlow()
     }
 
     override fun onDestroy() {
@@ -37,6 +44,21 @@ class ReminderFragment: Fragment(R.layout.fragment_reminder) {
                          else binding.reminderTimepicker.currentMinute
 
             viewModel.insertReminder(hour, minute)
+        }
+    }
+
+    private fun observeEventFlow() {
+        lifecycleScope.launch {
+            viewModel.eventFlow.collectLatest { event ->
+                when (event) {
+                    is UiEvent.Navigate -> {
+                        findNavController().popBackStack()
+                    }
+                    is UiEvent.ShowToast -> {
+                        Toast.makeText(requireActivity(), event.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
     }
 }
