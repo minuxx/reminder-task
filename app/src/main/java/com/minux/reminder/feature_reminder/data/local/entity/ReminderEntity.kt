@@ -8,7 +8,7 @@ import com.minux.reminder.feature_reminder.domain.model.Reminder
 data class ReminderEntity(
     val name: String,
     val time: String,
-    val isActivated: Boolean = false,
+    val isActivated: Boolean = true,
     @PrimaryKey val id: Int? = null
 ) {
     fun toReminder(): Reminder {

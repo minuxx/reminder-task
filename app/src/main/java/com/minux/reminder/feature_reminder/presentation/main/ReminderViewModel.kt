@@ -1,15 +1,19 @@
 package com.minux.reminder.feature_reminder.presentation.main
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.minux.reminder.core.util.Constants.ERROR_UNKNOWN
+import com.minux.reminder.core.util.Constants.TAG_APP
 import com.minux.reminder.core.util.Constants.TYPE_VIEW_EDIT
 import com.minux.reminder.core.util.Constants.TYPE_VIEW_NEW
 import com.minux.reminder.core.util.Resource
 import com.minux.reminder.feature_reminder.domain.model.Reminder
 import com.minux.reminder.feature_reminder.domain.use_case.ReminderUseCase
+import com.minux.reminder.feature_reminder.presentation.reminder.ReminderUiState
+import com.minux.reminder.feature_reminder.presentation.reminders.RemindersUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -26,6 +30,9 @@ class ReminderViewModel @Inject constructor(
     private val _reminderUiState = MutableLiveData(ReminderUiState())
     val reminderUiState: LiveData<ReminderUiState> get() = _reminderUiState
 
+    private val _isLoading = MutableLiveData(false)
+    val isLoading: LiveData<Boolean> get() = _isLoading
+
     init {
         getReminders()
     }
@@ -33,63 +40,55 @@ class ReminderViewModel @Inject constructor(
     fun changeReminderViewType(reminder: Reminder?) {
         _reminderUiState.value = reminderUiState.value?.copy(
             viewType = if(reminder == null) TYPE_VIEW_NEW else TYPE_VIEW_EDIT,
-            reminder = reminder
         )
     }
 
-    fun insertReminder(name: String, time: String) {
+    fun insertReminder(hour: Int, minute: Int) {
         viewModelScope.launch {
-            val reminder = Reminder(name = name, time = time)
 
-            usecase.insertUseCase(reminder).onEach { result ->
-                when(result) {
-                    is Resource.Loading -> {
-
+            usecase.insertUseCase(reminderUiState.value?.name?.value ?: "", hour, minute)
+                .onEach { result ->
+                    when(result) {
+                        is Resource.Loading -> {
+                            _isLoading.value = true
+                        }
+                        is Resource.Success -> {
+                            _isLoading.value = false
+                        }
+                        is Resource.Error -> {
+                            _isLoading.value = false
+                        }
                     }
-                    is Resource.Success -> {
-
-                    }
-                    is Resource.Error -> {
-
-                    }
-                }
-            }.launchIn(this)
+                }.launchIn(this)
         }
     }
 
-    private fun getReminders() {
+    fun getReminders() {
         viewModelScope.launch {
             usecase.getRemindersUseCase().onEach { result ->
                 when(result) {
                     is Resource.Loading -> {
-                        _remindersUiState.value = remindersUiState.value?.copy(
-                            isLoading = true,
-                            error = ""
-                        )
+
                     }
                     is Resource.Success -> {
+
+
                         _remindersUiState.value = remindersUiState.value?.copy(
                             reminders = result.data ?: emptyList(),
-                            isLoading = false,
                             error = ""
                         )
+
+                        Log.d(TAG_APP, "RMINDERS: ${result.data.toString()}")
                     }
                     is Resource.Error -> {
+
+
                         _remindersUiState.value = remindersUiState.value?.copy(
                             error = result.message ?: ERROR_UNKNOWN,
-                            isLoading = false,
                         )
                     }
                 }
             }.launchIn(this)
-        }
-    }
-
-    fun insert10RemindersForTest() {
-        viewModelScope.launch {
-            for (i in 1..10) {
-                insertReminder("${i}번째 리마인더", "${i}:00 AM")
-            }
         }
     }
 }

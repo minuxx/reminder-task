@@ -48,6 +48,7 @@ class ReminderRepositoryImpl(
                 name = reminder.name,
                 time = reminder.time,
             ))
+            emit(Resource.Success())
         } catch (e: SQLiteException) {
             Log.e(TAG_APP, e.localizedMessage ?: ERROR_SQLITE)
 
