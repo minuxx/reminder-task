@@ -2,10 +2,13 @@ package com.minux.reminder.feature_reminder.data.repository
 
 import android.database.sqlite.SQLiteException
 import android.util.Log
+import com.minux.reminder.core.util.Constants.ERROR_MSG_GET_REMINDERS
+import com.minux.reminder.core.util.Constants.ERROR_MSG_SET_REMINDER
 import com.minux.reminder.core.util.Constants.ERROR_SQLITE
 import com.minux.reminder.core.util.Constants.ERROR_UNKNOWN
 import com.minux.reminder.core.util.Constants.TAG_APP
 import com.minux.reminder.core.util.Resource
+import com.minux.reminder.core.util.TimeFormatUtil
 import com.minux.reminder.feature_reminder.data.local.ReminderDao
 import com.minux.reminder.feature_reminder.data.local.entity.ReminderEntity
 import com.minux.reminder.feature_reminder.domain.model.Reminder
@@ -21,7 +24,9 @@ class ReminderRepositoryImpl(
         emit(Resource.Loading())
 
         try {
-            val reminders = dao.getReminders().map { it.toReminder() }
+            val reminders = dao.getReminders()
+                .map { it.toReminder() }
+                .sortedWith(compareBy({ TimeFormatUtil.getHourFromTime(it.time) }, {TimeFormatUtil.getMinuteFromTime(it.time) }))
             emit(Resource.Success(
                 data = reminders
             ))
@@ -29,13 +34,13 @@ class ReminderRepositoryImpl(
             Log.e(TAG_APP, e.localizedMessage ?: ERROR_SQLITE)
 
             emit(Resource.Error(
-                message = ERROR_SQLITE
+                message = ERROR_MSG_GET_REMINDERS
             ))
         } catch (e: Exception) {
             Log.e(TAG_APP, e.localizedMessage ?: ERROR_UNKNOWN)
 
             emit(Resource.Error(
-                message = ERROR_UNKNOWN
+                message = ERROR_MSG_GET_REMINDERS
             ))
         }
     }
@@ -48,17 +53,44 @@ class ReminderRepositoryImpl(
                 name = reminder.name,
                 time = reminder.time,
             ))
+            emit(Resource.Success())
         } catch (e: SQLiteException) {
             Log.e(TAG_APP, e.localizedMessage ?: ERROR_SQLITE)
 
             emit(Resource.Error(
-                message = ERROR_SQLITE
+                message = ERROR_MSG_SET_REMINDER
             ))
         } catch (e: Exception) {
             Log.e(TAG_APP, e.localizedMessage ?: ERROR_UNKNOWN)
 
             emit(Resource.Error(
-                message = ERROR_UNKNOWN
+                message = ERROR_MSG_SET_REMINDER
+            ))
+        }
+    }
+
+    override fun updateReminder(reminder: Reminder): Flow<Resource<Unit>> = flow {
+        emit(Resource.Loading())
+
+        try {
+            dao.updateReminder(reminder = ReminderEntity(
+                id = reminder.id,
+                name = reminder.name,
+                time = reminder.time,
+                isActivated = reminder.isActivated
+            ))
+            emit(Resource.Success())
+        } catch (e: SQLiteException) {
+            Log.e(TAG_APP, e.localizedMessage ?: ERROR_SQLITE)
+
+            emit(Resource.Error(
+                message = ERROR_MSG_SET_REMINDER
+            ))
+        } catch (e: Exception) {
+            Log.e(TAG_APP, e.localizedMessage ?: ERROR_UNKNOWN)
+
+            emit(Resource.Error(
+                message = ERROR_MSG_SET_REMINDER
             ))
         }
     }

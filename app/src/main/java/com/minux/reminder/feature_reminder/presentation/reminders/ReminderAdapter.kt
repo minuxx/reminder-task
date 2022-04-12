@@ -13,7 +13,8 @@ import com.minux.reminder.feature_reminder.domain.model.Reminder
 
 class ReminderAdapter(
     private val context: Context,
-    private val onItemClick: (Reminder) -> (Unit)
+    private val onItemClick: (Reminder) -> (Unit),
+    private val onChangeActivated: (Reminder) -> (Unit)
 ): ListAdapter<Reminder, ReminderAdapter.ViewHolder>(ReminderDiffCallback) {
     private lateinit var binding: ItemReminderBinding
 
@@ -37,6 +38,7 @@ class ReminderAdapter(
             binding.nameTv.text = reminder.name
 
             itemView.setOnClickListener{ onItemClick(reminder) }
+            binding.activeIv.setOnClickListener{ onChangeActivated(reminder.copy(isActivated = !reminder.isActivated)) }
         }
     }
 

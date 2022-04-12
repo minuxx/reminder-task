@@ -5,10 +5,10 @@ import com.minux.reminder.feature_reminder.domain.model.Reminder
 import com.minux.reminder.feature_reminder.domain.repository.ReminderRepository
 import kotlinx.coroutines.flow.Flow
 
-class GetRemindersUseCase(
+class UpdateReminderUseCase(
     private val repository: ReminderRepository
 ) {
-    operator fun invoke(): Flow<Resource<List<Reminder>>> {
-        return repository.getReminders()
+    operator fun invoke(reminder: Reminder): Flow<Resource<Unit>> {
+        return repository.updateReminder(reminder)
     }
 }

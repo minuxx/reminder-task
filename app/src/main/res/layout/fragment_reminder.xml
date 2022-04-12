@@ -1,24 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background"
-    android:paddingTop="15dp"
-    android:paddingStart="15dp"
-    android:paddingEnd="15dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:ignore="RtlSymmetry">
 
-    <TextView
-        android:id="@+id/reminder_title_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/reminder_title"
-        android:textColor="@color/screenTitle"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.minux.reminder.feature_reminder.presentation.main.ReminderViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/reminder_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reminder_title"
+            android:textColor="@color/screenTitle"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/reminder_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="@string/reminder_name"
+            android:textColor="@color/reminderCategoryText"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/reminder_title_tv"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <EditText
+            android:id="@+id/reminder_name_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@={viewModel.reminderUiState.name}"
+            android:textColor="@color/screenTitle"
+            android:textSize="16sp"
+            android:hint="@string/reminder_name_hint"
+            android:inputType="textNoSuggestions"
+            android:theme="@style/EditTextTheme"
+            android:maxLength="20"
+            app:layout_constraintTop_toBottomOf="@+id/reminder_name_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            android:autofillHints="no"/>
+
+        <TextView
+            android:id="@+id/reminder_time_set_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="@string/reminder_time_set"
+            android:textColor="@color/reminderCategoryText"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/reminder_name_et"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TimePicker
+            android:id="@+id/reminder_timepicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:timePickerMode="spinner"
+            android:background="@drawable/bg_widget"
+            android:theme="@style/TimePickerTheme"
+
+            app:layout_constraintTop_toBottomOf="@+id/reminder_time_set_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/reminder_ringtone_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="@string/reminder_ringtone"
+            android:textColor="@color/reminderCategoryText"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/reminder_timepicker"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/reminder_ringtone_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="10dp"
+            android:padding="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_widget"
+            app:layout_constraintTop_toBottomOf="@+id/reminder_ringtone_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/reminder_ringtone_iv"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_ringtone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:contentDescription="@string/reminder_cd_ringtone"/>
+
+            <TextView
+                android:id="@+id/reminder_ringtone_en_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="@string/reminder_ringtone_en"
+                android:textColor="@color/reminderCategoryText"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/reminder_ringtone_title_tv"
+                app:layout_constraintStart_toEndOf="@+id/reminder_ringtone_iv" />
+
+            <TextView
+                android:id="@+id/reminder_ringtone_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:textColor="@color/reminderRingtoneTitleText"
+                android:textSize="15sp"
+                app:layout_constraintTop_toBottomOf="@+id/reminder_ringtone_en_tv"
+                app:layout_constraintStart_toEndOf="@+id/reminder_ringtone_iv"
+                tools:text="Homecoming"/>
+
+            <ImageView
+                android:id="@+id/reminder_right_arrow_iv"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_right_arrow"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:contentDescription="@string/reminders_cd_clock_icon"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/reminder_save_btn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/reminder_save"
+            android:textColor="@color/primaryButtonText"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textAllCaps="false"
+            android:clickable="@{viewModel.isLoading() == false}"
+            android:background="@drawable/bg_basic_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

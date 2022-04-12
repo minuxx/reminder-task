@@ -1,11 +1,13 @@
 package com.minux.reminder.feature_reminder.presentation.reminders
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.minux.reminder.R
+import com.minux.reminder.core.util.Constants.TAG_APP
 import com.minux.reminder.databinding.FragmentRemindersBinding
 import com.minux.reminder.feature_reminder.presentation.main.ReminderViewModel
 
@@ -30,12 +32,16 @@ class RemindersFragment: Fragment(R.layout.fragment_reminders) {
 
     private fun initUI() {
         binding.remindersAddBtn.setOnClickListener{
+            viewModel.changeReminderViewType(null)
             findNavController().navigate(R.id.reminderFragment)
         }
 
-        reminderAdapter = ReminderAdapter(requireActivity()) {
+        reminderAdapter = ReminderAdapter(requireActivity(), {
+            viewModel.changeReminderViewType(it)
             findNavController().navigate(R.id.reminderFragment)
-        }
+        }, {
+            viewModel.updateReminder(it)
+        })
 
         binding.remindersRecyclerview.adapter = reminderAdapter
     }

@@ -9,6 +9,7 @@ import com.minux.reminder.feature_reminder.domain.repository.ReminderRepository
 import com.minux.reminder.feature_reminder.domain.use_case.GetRemindersUseCase
 import com.minux.reminder.feature_reminder.domain.use_case.InsertReminderUseCase
 import com.minux.reminder.feature_reminder.domain.use_case.ReminderUseCase
+import com.minux.reminder.feature_reminder.domain.use_case.UpdateReminderUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,7 +39,8 @@ object ReminderModule {
     fun provideReminderUseCases(repository: ReminderRepository): ReminderUseCase {
         return ReminderUseCase(
             insertUseCase = InsertReminderUseCase(repository),
-            getRemindersUseCase = GetRemindersUseCase(repository)
+            getRemindersUseCase = GetRemindersUseCase(repository),
+            updateReminderUseCase = UpdateReminderUseCase(repository)
         )
     }
 }
