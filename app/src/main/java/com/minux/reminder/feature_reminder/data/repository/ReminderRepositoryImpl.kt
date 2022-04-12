@@ -8,6 +8,7 @@ import com.minux.reminder.core.util.Constants.ERROR_SQLITE
 import com.minux.reminder.core.util.Constants.ERROR_UNKNOWN
 import com.minux.reminder.core.util.Constants.TAG_APP
 import com.minux.reminder.core.util.Resource
+import com.minux.reminder.core.util.TimeFormatUtil
 import com.minux.reminder.feature_reminder.data.local.ReminderDao
 import com.minux.reminder.feature_reminder.data.local.entity.ReminderEntity
 import com.minux.reminder.feature_reminder.domain.model.Reminder
@@ -23,7 +24,9 @@ class ReminderRepositoryImpl(
         emit(Resource.Loading())
 
         try {
-            val reminders = dao.getReminders().map { it.toReminder() }
+            val reminders = dao.getReminders()
+                .map { it.toReminder() }
+                .sortedWith(compareBy({ TimeFormatUtil.getHourFromTime(it.time) }, {TimeFormatUtil.getMinuteFromTime(it.time) }))
             emit(Resource.Success(
                 data = reminders
             ))
