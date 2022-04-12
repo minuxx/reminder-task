@@ -8,4 +8,6 @@ interface ReminderRepository {
     fun getReminders(): Flow<Resource<List<Reminder>>>
 
     fun insertReminder(reminder: Reminder): Flow<Resource<Unit>>
+
+    fun updateReminder(reminder: Reminder): Flow<Resource<Unit>>
 }

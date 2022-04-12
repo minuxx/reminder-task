@@ -1,6 +1,7 @@
 package com.minux.reminder.feature_reminder.domain.use_case
 
 import com.minux.reminder.core.util.Resource
+import com.minux.reminder.core.util.TimeFormatUtil
 import com.minux.reminder.feature_reminder.domain.model.Reminder
 import com.minux.reminder.feature_reminder.domain.repository.ReminderRepository
 import kotlinx.coroutines.flow.Flow
@@ -16,21 +17,7 @@ class InsertReminderUseCase(
             )) }
         }
 
-        val m = if(minute < 10) "0$minute" else "$minute"
-
-        val time = when {
-            hour < 12 -> {
-                "${if(hour < 10) "0$hour" else "$hour"}:$m AM"
-            }
-            hour == 12 -> {
-                "$hour:$m PM"
-            }
-            else -> {
-                "${if(hour >= 22) "${hour - 12}" else "0${hour - 12}"}:$m PM"
-            }
-        }
-
-        val reminder = Reminder(name = name, time = time)
+        val reminder = Reminder(name = name, time = TimeFormatUtil.getTimeFormat(hour, minute))
 
         return repository.insertReminder(reminder)
     }

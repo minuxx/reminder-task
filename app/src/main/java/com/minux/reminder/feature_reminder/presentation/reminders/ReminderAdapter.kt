@@ -1,6 +1,7 @@
 package com.minux.reminder.feature_reminder.presentation.reminders
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,12 +9,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.minux.reminder.R
+import com.minux.reminder.core.util.Constants
 import com.minux.reminder.databinding.ItemReminderBinding
 import com.minux.reminder.feature_reminder.domain.model.Reminder
 
 class ReminderAdapter(
     private val context: Context,
-    private val onItemClick: (Reminder) -> (Unit)
+    private val onItemClick: (Reminder) -> (Unit),
+    private val onChangeActivated: (Reminder) -> (Unit)
 ): ListAdapter<Reminder, ReminderAdapter.ViewHolder>(ReminderDiffCallback) {
     private lateinit var binding: ItemReminderBinding
 
@@ -36,7 +39,8 @@ class ReminderAdapter(
             binding.timeTv.text = reminder.time
             binding.nameTv.text = reminder.name
 
-            itemView.setOnClickListener{ onItemClick(reminder) }
+            binding.parentView.setOnClickListener{ onItemClick(reminder) }
+            binding.activeIv.setOnClickListener{ onChangeActivated(reminder.copy(isActivated = !reminder.isActivated)) }
         }
     }
 

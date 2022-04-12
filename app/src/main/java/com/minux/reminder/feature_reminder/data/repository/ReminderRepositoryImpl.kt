@@ -65,4 +65,30 @@ class ReminderRepositoryImpl(
             ))
         }
     }
+
+    override fun updateReminder(reminder: Reminder): Flow<Resource<Unit>> = flow {
+        emit(Resource.Loading())
+
+        try {
+            dao.updateReminder(reminder = ReminderEntity(
+                id = reminder.id,
+                name = reminder.name,
+                time = reminder.time,
+                isActivated = reminder.isActivated
+            ))
+            emit(Resource.Success())
+        } catch (e: SQLiteException) {
+            Log.e(TAG_APP, e.localizedMessage ?: ERROR_SQLITE)
+
+            emit(Resource.Error(
+                message = ERROR_MSG_SET_REMINDER
+            ))
+        } catch (e: Exception) {
+            Log.e(TAG_APP, e.localizedMessage ?: ERROR_UNKNOWN)
+
+            emit(Resource.Error(
+                message = ERROR_MSG_SET_REMINDER
+            ))
+        }
+    }
 }

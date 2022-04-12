@@ -75,6 +75,7 @@
             android:timePickerMode="spinner"
             android:background="@drawable/bg_widget"
             android:theme="@style/TimePickerTheme"
+
             app:layout_constraintTop_toBottomOf="@+id/reminder_time_set_tv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
