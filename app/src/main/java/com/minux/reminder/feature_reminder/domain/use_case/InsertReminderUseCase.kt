@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.flow
 class InsertReminderUseCase(
     private val repository: ReminderRepository
 ) {
-    operator fun invoke(name: String, hour: Int, minute: Int): Flow<Resource<Unit>> {
+    operator fun invoke(name: String, hour: Int, minute: Int): Flow<Resource<Int>> {
         if(name.isBlank() || name.length > 20) {
             return flow { emit(Resource.Error(
                 message = if (name.isBlank()) "리마인더 이름을 입력해주세요." else "리마인더 이름은 20자 이하로 입력해주세요."

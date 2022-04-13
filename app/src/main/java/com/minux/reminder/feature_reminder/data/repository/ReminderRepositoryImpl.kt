@@ -45,15 +45,16 @@ class ReminderRepositoryImpl(
         }
     }
 
-    override fun insertReminder(reminder: Reminder): Flow<Resource<Unit>> = flow {
+    override fun insertReminder(reminder: Reminder): Flow<Resource<Int>> = flow {
         emit(Resource.Loading())
 
         try {
-            dao.insertReminder(reminder = ReminderEntity(
+            val id = dao.insertReminder(reminder = ReminderEntity(
                 name = reminder.name,
                 time = reminder.time,
             ))
-            emit(Resource.Success())
+
+            emit(Resource.Success(data = id.toInt()))
         } catch (e: SQLiteException) {
             Log.e(TAG_APP, e.localizedMessage ?: ERROR_SQLITE)
 
@@ -73,12 +74,13 @@ class ReminderRepositoryImpl(
         emit(Resource.Loading())
 
         try {
-            dao.updateReminder(reminder = ReminderEntity(
+            val id = dao.updateReminder(reminder = ReminderEntity(
                 id = reminder.id,
                 name = reminder.name,
                 time = reminder.time,
                 isActivated = reminder.isActivated
             ))
+
             emit(Resource.Success())
         } catch (e: SQLiteException) {
             Log.e(TAG_APP, e.localizedMessage ?: ERROR_SQLITE)

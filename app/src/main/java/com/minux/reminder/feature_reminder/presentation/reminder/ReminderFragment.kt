@@ -68,6 +68,7 @@ class ReminderFragment: Fragment(R.layout.fragment_reminder) {
                 } else {
                     binding.reminderTimepicker.currentHour = it.hour
                 }
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     binding.reminderTimepicker.minute = it.minute
                 } else {
@@ -87,6 +88,7 @@ class ReminderFragment: Fragment(R.layout.fragment_reminder) {
                     is UiEvent.ShowToast -> {
                         Toast.makeText(requireActivity(), event.message, Toast.LENGTH_SHORT).show()
                     }
+                    else -> {}
                 }
             }
         }

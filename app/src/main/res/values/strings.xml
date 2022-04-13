@@ -1,6 +1,6 @@
 <resources>
     <!-- Common -->
-    <string name="app_name">Reminder</string>
+    <string name="app_name">리마인더</string>
     <string name="cd_right_arrow_icon">오른쪽 화살표 아이콘</string>
 
     <!-- Main -->
@@ -20,4 +20,7 @@
     <string name="reminder_save">Save</string>
 
     <string name="reminder_cd_ringtone">벨소리 아이콘</string>
+
+    <!--  Alarm  -->
+    <string name="alarm_dismiss">Dismiss</string>
 </resources>

@@ -1,15 +1,21 @@
 package com.minux.reminder.feature_reminder.presentation.reminders
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.minux.reminder.R
 import com.minux.reminder.core.util.Constants.TAG_APP
 import com.minux.reminder.databinding.FragmentRemindersBinding
+import com.minux.reminder.feature_reminder.presentation.alarm.AlarmReceiver
 import com.minux.reminder.feature_reminder.presentation.main.ReminderViewModel
+import java.util.*
 
 class RemindersFragment: Fragment(R.layout.fragment_reminders) {
     private var _binding: FragmentRemindersBinding? = null
