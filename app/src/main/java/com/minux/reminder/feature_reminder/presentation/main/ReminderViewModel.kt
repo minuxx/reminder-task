@@ -143,8 +143,7 @@ class ReminderViewModel @Inject constructor(
                                         TimeFormatUtil.getMinuteFromTime(reminder.time)
                                     )
                                 )
-                            } else {
-                                // 알람 비활성화 체크 시 알람 해지 명령
+                            } else {  // 알람 비활성화 체크 시 알람 해지 명령
                                 _eventFlow.emit(
                                     UiEvent.UnsetReminder(reminder.id)
                                 )

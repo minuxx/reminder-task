@@ -15,4 +15,5 @@ object Constants {
     const val ERROR_MSG_SET_REMINDER = "리마인더 설정에 실패했습니다. 다시 시도해주세요."
 
     const val EXTRA_REMINDER_ID = "REMINDER-ID"
+    const val EXTRA_ALARM_ON_OFF = "ALARM-ON-OFF"
 }

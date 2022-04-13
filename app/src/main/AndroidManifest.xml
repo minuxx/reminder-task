@@ -21,6 +21,7 @@
         </activity>
 
         <receiver android:name=".feature_reminder.presentation.alarm.AlarmReceiver" />
+        <service android:name=".feature_reminder.presentation.alarm.AlarmService" />
     </application>
 
 </manifest>
