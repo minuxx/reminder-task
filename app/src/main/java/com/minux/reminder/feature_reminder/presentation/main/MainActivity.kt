@@ -42,7 +42,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
     }
 
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             viewModel.eventFlow.collectLatest { event ->
                 when (event) {
                     is UiEvent.SetReminder -> {
-                        if(event.id > 0) {
+                        if (event.id > 0) {
                             setReminder(event.id, event.hour, event.minute)
                         }
                     }
@@ -63,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 
 //                        Log.d(TAG_APP, "MAIN EXTRA-REMINDER-ID: $reminderId")
 
-                        if(reminderId > 0) {
+                        if (reminderId > 0) {
                             navController.navigate(R.id.alarmFragment)
                             viewModel.setAlarmUiState(reminderId)
                             intent.removeExtra(EXTRA_REMINDER_ID)
@@ -76,25 +77,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setReminder(reminderId: Int, hour: Int, minute: Int) {
-        if(reminderId < 1) return
+        if (reminderId < 1) return
 
         val calendar = Calendar.getInstance()
 
         val intent = Intent(this, AlarmReceiver::class.java)
         intent.putExtra(EXTRA_REMINDER_ID, reminderId)
 
-        val alarmIntent = PendingIntent.getBroadcast(this, reminderId, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+        val alarmIntent =
+            PendingIntent.getBroadcast(this, reminderId, intent, PendingIntent.FLAG_CANCEL_CURRENT)
 
         calendar.set(Calendar.HOUR_OF_DAY, hour)
         calendar.set(Calendar.MINUTE, minute)
         calendar.set(Calendar.SECOND, 0)
+
+        if (calendar.before(Calendar.getInstance())) {
+            calendar.add(Calendar.DATE, 1);
+        }
 
         Log.d(TAG_APP, "Set Reminder [$reminderId], Time: ${calendar.time}")
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, alarmIntent)
     }
 
     private fun unsetReminder(reminderId: Int) {
-        if(reminderId < 1) return
+        if (reminderId < 1) return
 
         Log.d(TAG_APP, "Unset Reminder [$reminderId]")
 

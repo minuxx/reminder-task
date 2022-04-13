@@ -75,7 +75,6 @@
             android:timePickerMode="spinner"
             android:background="@drawable/bg_widget"
             android:theme="@style/TimePickerTheme"
-
             app:layout_constraintTop_toBottomOf="@+id/reminder_time_set_tv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -131,6 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
+                android:text="Homecoming"
                 android:textColor="@color/reminderRingtoneTitleText"
                 android:textSize="15sp"
                 app:layout_constraintTop_toBottomOf="@+id/reminder_ringtone_en_tv"

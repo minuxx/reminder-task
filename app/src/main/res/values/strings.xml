@@ -1,6 +1,6 @@
 <resources>
     <!-- Common -->
-    <string name="app_name">Reminder</string>
+    <string name="app_name">리마인더</string>
     <string name="cd_right_arrow_icon">오른쪽 화살표 아이콘</string>
 
     <!-- Main -->

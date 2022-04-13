@@ -1,6 +1,5 @@
 package com.minux.reminder.feature_reminder.presentation.main
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.minux.reminder.core.util.Constants.ERROR_MSG_GET_REMINDERS
 import com.minux.reminder.core.util.Constants.ERROR_MSG_SET_REMINDER
 import com.minux.reminder.core.util.Constants.EVENT_MOVE_REMINDERS
-import com.minux.reminder.core.util.Constants.TAG_APP
 import com.minux.reminder.core.util.Constants.TYPE_VIEW_EDIT
 import com.minux.reminder.core.util.Constants.TYPE_VIEW_NEW
 import com.minux.reminder.core.util.Resource
@@ -37,7 +35,7 @@ class ReminderViewModel @Inject constructor(
     private val _reminderUiState = MutableLiveData(ReminderUiState())
     val reminderUiState: LiveData<ReminderUiState> get() = _reminderUiState
 
-    private val _alarmUiState = MutableLiveData(AlarmUiState())
+    private val _alarmUiState = MutableLiveData<AlarmUiState>()
     val alarmUiState: LiveData<AlarmUiState> get() = _alarmUiState
 
     private val _isLoading = MutableLiveData(false)
@@ -167,12 +165,14 @@ class ReminderViewModel @Inject constructor(
     }
 
     fun setAlarmUiState(reminderId: Int) {
-        val reminder = remindersUiState.value?.reminders?.find { it.id == reminderId }
+        val reminder = remindersUiState.value?.reminders?.find { it.id == reminderId } ?: return
 
-        Log.d(TAG_APP, "Set AlarmUiState reminderId: $reminderId")
-
-        _alarmUiState.value = alarmUiState.value?.copy(
-            reminder = reminder
-        )
+        if(alarmUiState.value == null) {
+            _alarmUiState.value = AlarmUiState(reminder)
+        } else {
+            _alarmUiState.value = alarmUiState.value?.copy(
+                reminder = reminder
+            )
+        }
     }
 }

@@ -16,4 +16,8 @@ object Constants {
 
     const val EXTRA_REMINDER_ID = "REMINDER-ID"
     const val EXTRA_ALARM_ON_OFF = "ALARM-ON-OFF"
+    const val EXTRA_NOTIFICATION_ID = "NOTIFICATION-ID"
+
+    const val NOTIFICATION_CHANNEL_ID = "com.minux.reminder"
+    const val NOTIFICATION_CHANNEL_NAME = "Reminder"
 }

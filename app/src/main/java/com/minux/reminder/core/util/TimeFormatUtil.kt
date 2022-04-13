@@ -1,8 +1,5 @@
 package com.minux.reminder.core.util
 
-import android.util.Log
-import com.minux.reminder.core.util.Constants.TAG_APP
-
 object TimeFormatUtil {
     fun getHourFromTime(time: String): Int {
         val s = time.split(":")
