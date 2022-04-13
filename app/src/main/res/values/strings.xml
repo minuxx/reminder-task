@@ -20,4 +20,7 @@
     <string name="reminder_save">Save</string>
 
     <string name="reminder_cd_ringtone">벨소리 아이콘</string>
+
+    <!--  Alarm  -->
+    <string name="alarm_dismiss">Dismiss</string>
 </resources>

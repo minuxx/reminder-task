@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.minux.reminder.feature_reminder.presentation.main.ReminderViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/alarm_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:text="@{viewModel.alarmUiState.reminder.name}"
+            android:textColor="@color/screenTitle"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="내시경 약 먹기" />
+
+        <TextView
+            android:id="@+id/alarm_time_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@{viewModel.alarmUiState.reminder.time.split(` `)[0]}"
+            android:textColor="@color/screenTitle"
+            android:textSize="100sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@+id/alarm_name_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="08:00" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/alarm_dismiss_btn"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="@string/alarm_dismiss"
+            android:textColor="@color/primaryButtonText"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textAllCaps="false"
+            android:layout_marginTop="200dp"
+            android:background="@drawable/bg_basic_button"
+            app:layout_constraintTop_toBottomOf="@+id/alarm_time_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

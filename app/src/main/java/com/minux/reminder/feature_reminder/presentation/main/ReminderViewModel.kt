@@ -1,6 +1,5 @@
 package com.minux.reminder.feature_reminder.presentation.main
 
-import android.app.PendingIntent
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,7 +16,7 @@ import com.minux.reminder.core.util.TimeFormatUtil
 import com.minux.reminder.core.util.UiEvent
 import com.minux.reminder.feature_reminder.domain.model.Reminder
 import com.minux.reminder.feature_reminder.domain.use_case.ReminderUseCase
-import com.minux.reminder.feature_reminder.presentation.alarm.AlarmIntent
+import com.minux.reminder.feature_reminder.presentation.alarm.AlarmUiState
 import com.minux.reminder.feature_reminder.presentation.reminder.ReminderUiState
 import com.minux.reminder.feature_reminder.presentation.reminders.RemindersUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -38,13 +37,14 @@ class ReminderViewModel @Inject constructor(
     private val _reminderUiState = MutableLiveData(ReminderUiState())
     val reminderUiState: LiveData<ReminderUiState> get() = _reminderUiState
 
+    private val _alarmUiState = MutableLiveData(AlarmUiState())
+    val alarmUiState: LiveData<AlarmUiState> get() = _alarmUiState
+
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> get() = _isLoading
 
     private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
-
-    private val alarmIntents = mutableListOf<AlarmIntent>()
 
     init {
         getReminders()
@@ -73,6 +73,10 @@ class ReminderViewModel @Inject constructor(
                         _remindersUiState.value = remindersUiState.value?.copy(
                             reminders = result.data ?: emptyList(),
                             error = ""
+                        )
+
+                        _eventFlow.emit(
+                            UiEvent.GetRemindersSuccess()
                         )
                     }
                     is Resource.Error -> {
@@ -131,15 +135,6 @@ class ReminderViewModel @Inject constructor(
 
                             // isActivated에 의해 알람/해제하라는 시그널
                             if (reminder.isActivated) {
-                                // 리마인드설정화면에서 데이터를 수정하는 경우 이전시간의 알람 해지 명령
-                                if(alarmIntents.any { it.reminderId == reminder.id }) {
-                                    _eventFlow.emit(
-                                        UiEvent.UnsetReminder(alarmIntents.find{ it.reminderId == reminder.id }?.intent)
-                                    )
-
-                                    removeAlarmIntent(reminder.id)
-                                }
-
                                 // 새로운 시간대의 알람 설정 명령
                                 _eventFlow.emit(
                                     UiEvent.SetReminder(
@@ -151,10 +146,8 @@ class ReminderViewModel @Inject constructor(
                             } else {
                                 // 알람 비활성화 체크 시 알람 해지 명령
                                 _eventFlow.emit(
-                                    UiEvent.UnsetReminder(alarmIntents.find{ it.reminderId == reminder.id }?.intent)
+                                    UiEvent.UnsetReminder(reminder.id)
                                 )
-
-                                removeAlarmIntent(reminder.id)
                             }
 
                             getReminders()
@@ -174,15 +167,13 @@ class ReminderViewModel @Inject constructor(
         }
     }
 
-    fun addAlarmIntent(id: Int, alarmIntent: PendingIntent) {
-        alarmIntents.add(AlarmIntent(id, alarmIntent))
+    fun setAlarmUiState(reminderId: Int) {
+        val reminder = remindersUiState.value?.reminders?.find { it.id == reminderId }
 
-//        Log.d(TAG_APP, "ADD ALARM INTENTS: ${alarmIntents}")
-    }
+        Log.d(TAG_APP, "Set AlarmUiState reminderId: $reminderId")
 
-    private fun removeAlarmIntent(reminderId: Int) {
-        alarmIntents.remove(alarmIntents.find{ it.reminderId == reminderId })
-
-//        Log.d(TAG_APP, "REMOVE ALARM INTENTS: ${alarmIntents}")
+        _alarmUiState.value = alarmUiState.value?.copy(
+            reminder = reminder
+        )
     }
 }
